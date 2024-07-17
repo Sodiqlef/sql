@@ -115,7 +115,7 @@ SELECT date, product, exceeded from (
 		OVER(partition by product order by date) as exceeded
 		FROM sales_table as cTable
     ) AS ET
-		WHERE ( SELECT ET.exceededTable
+		WHERE ( SELECT ET.exceeded
 					FROM sales_table as totalSalesOfC
                     limit 1
 				 )  > (
