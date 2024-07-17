@@ -122,9 +122,14 @@ SELECT date, product, exceeded from (
 						SELECT sum(TotalSales) 
 							from sales_table as AandBtotalSales
 							WHERE product <> 'C'
-						 ) 
+						 ) ;
                 
             
+	-- !! 8.	What were the cumulative total sales for each product over the entire period covered by the dataset, ordered by date?
+    
+    SELECT date, product, totalSales, sum(totalsales) 
+		OVER(PARTITION BY product ORDER BY date) as cummulativeTotalSales
+        FROM sales_table;
             
 
             
