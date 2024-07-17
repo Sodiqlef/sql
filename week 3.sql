@@ -109,3 +109,24 @@ WHERE
             Max_Sales_Periods
     );
 
+-- !! 7.	On which date(s) did product C's total sales exceed the combined total sales of all other products?
+SELECT date, product, exceeded from (
+	SELECT date, Product, sum(totalSales) 
+		OVER(partition by product order by date) as exceeded
+		FROM sales_table as cTable
+    ) AS ET
+		WHERE ( SELECT ET.exceededTable
+					FROM sales_table as totalSalesOfC
+                    limit 1
+				 )  > (
+						SELECT sum(TotalSales) 
+							from sales_table as AandBtotalSales
+							WHERE product <> 'C'
+						 ) 
+                
+            
+            
+
+            
+            
+			
